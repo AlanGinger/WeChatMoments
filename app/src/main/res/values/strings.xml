@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">WeChatMoments</string>
+    <string name="moments_head_background">moments_head_background</string>
+    <string name="user_avatar">user_avatar</string>
 </resources>
