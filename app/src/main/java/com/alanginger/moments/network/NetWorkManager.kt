@@ -23,4 +23,8 @@ object NetWorkManager {
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(Retrofit2ConverterFactory())
         .build()
+
+    fun <T> createService(serviceClass: Class<T>): T {
+        return retrofit.create(serviceClass)
+    }
 }
