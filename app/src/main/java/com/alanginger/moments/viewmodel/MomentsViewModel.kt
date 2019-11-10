@@ -2,6 +2,7 @@ package com.alanginger.moments.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.alanginger.moments.model.Tweet
 import com.alanginger.moments.model.User
 import com.alanginger.moments.network.NetWorkManager
 import com.alanginger.moments.services.MomentsService
@@ -10,7 +11,6 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
-import retrofit2.HttpException
 
 class MomentsViewModel : ViewModel() {
 
@@ -18,6 +18,8 @@ class MomentsViewModel : ViewModel() {
     private val mCompositeDisposable = CompositeDisposable()
 
     val userLiveData = MutableLiveData<User>()
+    val tweetLiveData = MutableLiveData<List<Tweet>>()
+    val tweetList = arrayListOf<Tweet>()
 
     fun fetchUserInfo(userId: String) {
         momentsService.fetchUserInfo(userId)
@@ -31,6 +33,32 @@ class MomentsViewModel : ViewModel() {
                     it.printStackTrace()
                 }
             ).addTo(mCompositeDisposable)
+    }
+
+    fun fetchTweet(userId: String) {
+        momentsService.fetchTweets(userId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(
+                onNext = { tweets ->
+                    tweetList.clear()
+                    tweetList.addAll(tweets)
+                    fetchTweetpagination()
+                },
+                onError = {
+                    it.printStackTrace()
+                }
+            ).addTo(mCompositeDisposable)
+    }
+
+    fun fetchTweetpagination(index: Int = 0) {
+        val pageData = arrayListOf<Tweet>()
+        var i = 0
+        while (index + i < tweetList.size && i < 5) {
+            pageData.add(tweetList[index + i])
+            i++
+        }
+        tweetLiveData.value = pageData
     }
 
     override fun onCleared() {

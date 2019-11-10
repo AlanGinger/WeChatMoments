@@ -1,5 +1,6 @@
 package com.alanginger.moments.services
 
+import com.alanginger.moments.model.Tweet
 import com.alanginger.moments.model.User
 import io.reactivex.Observable
 import retrofit2.http.GET
@@ -11,4 +12,9 @@ interface MomentsService {
     fun fetchUserInfo(
         @Path("userId") userId: String
     ):Observable<User>
+
+    @GET("user/{userId}/tweets")
+    fun fetchTweets(
+        @Path("userId") userId: String
+    ):Observable<List<Tweet>>
 }

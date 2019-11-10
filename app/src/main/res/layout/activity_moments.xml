@@ -1,45 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MomentsActivity">
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/iv_moments_head"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:background="@color/AliceBlue"
-        android:contentDescription="@string/moments_head_background"
-        android:scaleType="centerCrop"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:background="@color/SkyBlue"
-        tools:layout_editor_absoluteX="0dp" />
+        android:layout_height="match_parent"
+        app:srlEnablePreviewInEditMode="true">
 
-    <ImageView
-        android:id="@+id/iv_user_avatar"
-        android:layout_width="84dp"
-        android:layout_height="84dp"
-        android:layout_marginEnd="24dp"
-        android:contentDescription="@string/user_avatar"
-        android:scaleType="centerCrop"
-        android:translationY="-60dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_moments_head"
-        tools:background="@color/LightCoral" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/White"
+            android:overScrollMode="never" />
 
-    <TextView
-        android:id="@+id/tv_user_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="6dp"
-        android:textColor="@color/White"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@id/iv_moments_head"
-        app:layout_constraintEnd_toStartOf="@id/iv_user_avatar"
-        tools:text="姜饼小框" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
     <ImageView
         android:id="@+id/btn_back"
@@ -64,5 +42,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>
+

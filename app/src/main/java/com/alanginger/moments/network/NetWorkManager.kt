@@ -7,7 +7,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 
 object NetWorkManager {
-    // 初始化okhttp
+    // 初始化OkHttp
     private var client: OkHttpClient
 
     init {
@@ -24,7 +24,10 @@ object NetWorkManager {
         .addConverterFactory(Retrofit2ConverterFactory())
         .build()
 
+    // 创建Service
     fun <T> createService(serviceClass: Class<T>): T {
         return retrofit.create(serviceClass)
     }
+
+
 }
