@@ -23,6 +23,9 @@ class MomentsViewModel : ViewModel() {
     val tweetLiveData = MutableLiveData<List<Tweet>>()
     val tweetList = arrayListOf<Tweet>()
 
+    /**
+     * 获取用户信息
+     */
     fun fetchUserInfo(userId: String) {
         momentsService.fetchUserInfo(userId)
             .subscribeOn(Schedulers.io())
@@ -37,6 +40,9 @@ class MomentsViewModel : ViewModel() {
             ).addTo(mCompositeDisposable)
     }
 
+    /**
+     * 获取Tweet流
+     */
     fun fetchTweet(userId: String) {
         momentsService.fetchTweets(userId)
             .subscribeOn(Schedulers.io())
@@ -44,7 +50,11 @@ class MomentsViewModel : ViewModel() {
             .subscribeBy(
                 onNext = { tweets ->
                     tweetList.clear()
-                    tweetList.addAll(tweets)
+                    tweets.forEach {
+                        it.sender?.apply {
+                            tweetList.add(it)
+                        }
+                    }
                     fetchTweetpagination()
                 },
                 onError = {
@@ -53,6 +63,9 @@ class MomentsViewModel : ViewModel() {
             ).addTo(mCompositeDisposable)
     }
 
+    /**
+     * 模拟分页获取Tweet流
+     */
     fun fetchTweetpagination(index: Int = 0) {
         Observable.create<List<Tweet>> {
             val pageData = arrayListOf<Tweet>()
@@ -67,6 +80,13 @@ class MomentsViewModel : ViewModel() {
             .subscribeBy {
                 tweetLiveData.postValue(it)
             }.addTo(mCompositeDisposable)
+    }
+
+    /**
+     * 刷新数据
+     */
+    fun refresh() {
+        fetchTweet("jsmith")
     }
 
     override fun onCleared() {
