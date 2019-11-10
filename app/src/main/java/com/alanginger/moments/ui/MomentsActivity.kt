@@ -1,4 +1,4 @@
-package com.alanginger.moments
+package com.alanginger.moments.ui
 
 import android.graphics.Color
 import android.os.Bundle
@@ -9,8 +9,8 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.alanginger.moments.R
 import com.alanginger.moments.model.User
-import com.alanginger.moments.ui.TweetAdapter
 import com.alanginger.moments.view.TweetDivider
 import com.alanginger.moments.viewmodel.MomentsViewModel
 import com.blankj.utilcode.util.ToastUtils
@@ -43,7 +43,9 @@ class MomentsActivity : AppCompatActivity() {
         adapter = TweetAdapter()
         adapter.setHeaderView(momentsHead)
         adapter.bindToRecyclerView(recyclerView)
-        recyclerView.addItemDecoration(TweetDivider(ContextCompat.getDrawable(this, R.drawable.divider_line)!!))
+        recyclerView.addItemDecoration(TweetDivider(ContextCompat.getDrawable(this,
+            R.drawable.divider_line
+        )!!))
     }
 
     /**
