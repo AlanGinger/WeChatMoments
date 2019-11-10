@@ -99,6 +99,7 @@ class MomentsActivity : AppCompatActivity() {
         tv_user_name.text = user.nick
         Glide.with(this@MomentsActivity)
             .load(user.profileImage)
+            .placeholder(R.drawable.error_background)
             .error(R.drawable.error_background)
             .into(iv_moments_head)
         Glide.with(this@MomentsActivity)
